@@ -62,7 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchAppBar() {
+export default function Navbar({ search, setSearch }) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -77,8 +77,15 @@ export default function SearchAppBar() {
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton size="large" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
-                            <MenuIcon onClick={handleClickOpen} />
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            sx={{ mr: 2 }}
+                            onClick={handleClickOpen}
+                        >
+                            <MenuIcon />
                         </IconButton>
                         <Typography
                             variant="h6"
@@ -92,7 +99,12 @@ export default function SearchAppBar() {
                             <SearchIconWrapper>
                                 <SearchIcon />
                             </SearchIconWrapper>
-                            <StyledInputBase placeholder="Tìm kiếm ..." inputProps={{ "aria-label": "search" }} />
+                            <StyledInputBase
+                                placeholder="Tìm kiếm ..."
+                                inputProps={{ "aria-label": "search" }}
+                                value={search}
+                                onChange={(event) => setSearch(event.target.value)}
+                            />
                         </Search>
                     </Toolbar>
                 </AppBar>

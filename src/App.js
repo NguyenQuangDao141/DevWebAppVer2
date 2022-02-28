@@ -6,6 +6,8 @@ import Content from "./components/Content";
 
 export default function App() {
     const [data, setData] = useState({});
+    const [search, setSearch] = useState("");
+    const [newData, setnewData] = useState([]);
 
     useEffect(() => {
         const rootRef = firebase.database().ref();
@@ -21,11 +23,36 @@ export default function App() {
         };
     }, []);
 
-    // console.log(data);
+    useEffect(() => {
+        let newData = [];
+        let index = 1;
+        for (const key in data) {
+            if (Object.hasOwnProperty.call(data, key)) {
+                const element = data[key];
+                if (
+                    element.bedId.toUpperCase().indexOf(search.toUpperCase()) > -1 ||
+                    element.name.toUpperCase().indexOf(search.toUpperCase()) > -1
+                ) {
+                    newData.push({
+                        index: index,
+                        velo: element.velo,
+                        time: element.time,
+                        stt: element.stt,
+                        name: element.name,
+                        bedId: element.bedId,
+                        calibVelo: element.calibVelo,
+                    });
+                    index++;
+                }
+            }
+        }
+        setnewData(newData);
+    }, [search, data]);
+
     return (
         <>
-            <Navbar />
-            <Content data={data} />
+            <Navbar search={search} setSearch={setSearch} />
+            <Content data={newData} />
             <Footer />
         </>
     );
