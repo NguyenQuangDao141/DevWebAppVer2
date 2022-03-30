@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import firebase from "./config";
+import Loading from "./components/Loading";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Content from "./components/Content";
@@ -8,8 +9,10 @@ export default function App() {
     const [data, setData] = useState({});
     const [search, setSearch] = useState("");
     const [newData, setnewData] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         const rootRef = firebase.database().ref();
         rootRef.on("value", function (snapshot) {
             if (snapshot.val() !== null) {
@@ -17,6 +20,7 @@ export default function App() {
             } else {
                 setData({});
             }
+            setLoading(false);
         });
         return () => {
             setData({});
@@ -30,8 +34,8 @@ export default function App() {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
                 if (
-                    element.bedId.toUpperCase().indexOf(search.toUpperCase()) > -1 ||
-                    element.name.toUpperCase().indexOf(search.toUpperCase()) > -1
+                    (element.bedId !== undefined && element.bedId.toUpperCase().indexOf(search.toUpperCase()) > -1) ||
+                    (element.name !== undefined && element.name.toUpperCase().indexOf(search.toUpperCase()) > -1)
                 ) {
                     newData.push({
                         index: index,
@@ -41,6 +45,9 @@ export default function App() {
                         name: element.name,
                         bedId: element.bedId,
                         calibVelo: element.calibVelo,
+                        solution: element.solution,
+                        stt1: element.stt1,
+                        volu: element.volu,
                     });
                     index++;
                 }
@@ -52,7 +59,7 @@ export default function App() {
     return (
         <>
             <Navbar search={search} setSearch={setSearch} />
-            <Content data={newData} />
+            {loading ? <Loading /> : <Content data={newData} />}
             <Footer />
         </>
     );

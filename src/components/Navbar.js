@@ -19,6 +19,8 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import SpeedIcon from "@mui/icons-material/Speed";
 import AppSettingsAltIcon from "@mui/icons-material/AppSettingsAlt";
 import TimelapseIcon from "@mui/icons-material/Timelapse";
+import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
+import BloodtypeOutlinedIcon from "@mui/icons-material/BloodtypeOutlined";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -120,6 +122,14 @@ export default function Navbar({ search, setSearch }) {
                     <Box sx={{ display: "flex", justifyContent: "start", alignItems: "center", marginBottom: 1 }}>
                         <PersonOutlineIcon sx={{ fontSize: 30, marginRight: 2 }} />
                         <Typography sx={{ fontWeight: 500 }}>Bệnh nhân</Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", justifyContent: "start", alignItems: "center", marginBottom: 1 }}>
+                        <BloodtypeOutlinedIcon sx={{ fontSize: 30, marginRight: 2 }} />
+                        <Typography sx={{ fontWeight: 500 }}>Dung dịch</Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", justifyContent: "start", alignItems: "center", marginBottom: 1 }}>
+                        <LocalDrinkOutlinedIcon sx={{ fontSize: 30, marginRight: 2 }} />
+                        <Typography sx={{ fontWeight: 500 }}>Thể tích</Typography>
                     </Box>
                     <Box sx={{ display: "flex", justifyContent: "start", alignItems: "center", marginBottom: 1 }}>
                         <SpeedIcon sx={{ fontSize: 30, marginRight: 2 }} />
